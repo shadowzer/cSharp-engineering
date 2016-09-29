@@ -66,11 +66,7 @@ namespace cSharp_engineering
         {
             if (angle1 > 0 && angle1 < 180 && angle2 > 0 && angle2 < 180 && ((angle1 + angle2) < 180) && side > 0)
             {
-                double SinA1 = Math.Sin(angle1 * Math.PI / 180);
-                double angle3 = (180 - angle1 - angle2) * Math.PI / 180;
-                double SinA3 = Math.Sin(angle3);
-                double ans = (side *  SinA1/ SinA3);
-                return ans;
+                return side * Math.Sin(angle1 * Math.PI / 180) / Math.Sin((180 - angle1 - angle2) * Math.PI / 180);
             }
             else
                 throw new Exception("There is no side in the triangle with these angles and side.");
