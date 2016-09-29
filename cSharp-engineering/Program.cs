@@ -10,7 +10,7 @@ namespace cSharp_engineering
     {
         static void Main(string[] args)
         {
-            Console.Write("You're about to create triangle via 1 of 3 methods:\n1. By using 3 sides.\n2. By using 2 sides and angle between them.\n3. By using 2 angles and side between them.\nEnter a number of method:");
+            Console.Write("You're about to create triangle via 1 of 3 methods:\n1. By using 3 sides.\n2. By using 2 sides and angle between them.\n3. By using side and 2 adjacent angles.\nEnter a number of method:");
             String Str = Console.ReadLine();
             while (int.Parse(Str) < 1 || int.Parse(Str) > 3)
             {
@@ -19,7 +19,7 @@ namespace cSharp_engineering
             }
             Triangle Triangle;
             double[] Data = new double[3];
-            Console.WriteLine("Enter 3 numbers. 1 per string. It can be integer or double.");
+            Console.WriteLine("Enter 3 numbers in order: sides are going first, then angles. 1 per string. It can be positive integer or double.");
             Data[0] = Convert.ToDouble(Console.ReadLine());
             Data[1] = Convert.ToDouble(Console.ReadLine());
             Data[2] = Convert.ToDouble(Console.ReadLine());

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cSharp_engineering
 {
-    class Triangle
+    public class Triangle
     {
         private double[] Sides = new double[3];
         private double Area;
@@ -43,7 +43,7 @@ namespace cSharp_engineering
             if (IsCorrectSides(side1, side2, side3))
                 return new Triangle(side1, side2, side3);
             else
-                throw new Exception("There is no triangle with these sides.");
+                throw new Exception("There is no triangle with these sides."); //DONE
         }
 
         public static double CalcSideFrom2SidesAndAngle(double side1, double side2, double angle)
@@ -51,7 +51,7 @@ namespace cSharp_engineering
             if (angle > 0 && angle < 180)
                 return Math.Sqrt(side1 * side1 + side2 * side2 - 2 * side1 * side2 * Math.Cos(angle * Math.PI / 180));
             else
-                throw new Exception("There is no angle in the triangle like that.");
+                throw new Exception("There is no side in the triangle like that."); //DONE
         }
 
         public static Triangle CreateTriangleFrom2SidesAndAngle(double side1, double side2, double angle)
@@ -59,27 +59,33 @@ namespace cSharp_engineering
             if (IsCorrectSides(side1, side2, CalcSideFrom2SidesAndAngle(side1, side2, angle)))
                 return new Triangle(side1, side2, CalcSideFrom2SidesAndAngle(side1, side2, angle));
             else
-                throw new Exception("There is no triangle with these sides.");
+                throw new Exception("There is no triangle with these sides and angle."); //DONE
         }
 
         public static double CalcSideFromSideAnd2Angles(double side, double angle1, double angle2)
         {
-            if (angle1 > 0 && angle1 < 180 && angle2 > 0 && angle2 < 180 && ((angle1 + angle2) < 180))
+            if (angle1 > 0 && angle1 < 180 && angle2 > 0 && angle2 < 180 && ((angle1 + angle2) < 180) && side > 0)
             {
-                return side * Math.Sin(angle1 * Math.PI / 180) / Math.Sin((180 * Math.PI / 180) - angle2 * Math.PI / 180 - angle1 * Math.PI / 180);
+                double SinA1 = Math.Sin(angle1 * Math.PI / 180);
+                double angle3 = (180 - angle1 - angle2) * Math.PI / 180;
+                double SinA3 = Math.Sin(angle3);
+                double ans = (side *  SinA1/ SinA3);
+                return ans;
             }
             else
-                throw new Exception("There is no angle in the triangle like that.");
+                throw new Exception("There is no side in the triangle with these angles and side.");
         }
 
         public static Triangle CreateTriangleFromSideAnd2Angles(double side, double angle1, double angle2)
         {
-            if (IsCorrectSides(CalcSideFromSideAnd2Angles(angle1, angle2, side), CalcSideFromSideAnd2Angles(angle2, angle1, side), side))
+            if (IsCorrectSides(CalcSideFromSideAnd2Angles(side, angle1, angle2), CalcSideFromSideAnd2Angles(side, angle2, angle1), side) && angle1 > 0 && angle1 < 180 && angle2 > 0 && angle2 < 180 && (angle1 + angle2) < 180)
             {
-                return new Triangle(CalcSideFromSideAnd2Angles(angle1, angle2, side), CalcSideFromSideAnd2Angles(angle2, angle1, side), side);
+                double side1 = CalcSideFromSideAnd2Angles(side, angle1, angle2);
+                double side2 = CalcSideFromSideAnd2Angles(side, angle2, angle1);
+                return new Triangle(side1, side2, side);
             }
             else
-                throw new Exception("There is no triangle with these sides.");
+                throw new Exception("There is no triangle with these angles and side."); //DONE
         }
     }
 }
