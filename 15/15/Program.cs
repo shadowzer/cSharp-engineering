@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace def
+namespace Def
 {
     class Program
     {
@@ -20,11 +20,11 @@ namespace def
             //g.PrintField();
 
             GameImmutable g = new GameImmutable(1, 2, 3, 0, 4, 5, 6, 7, 8);
-            g.PrintField();
+            g.ToString();
             g.Shift(4);
-            g.PrintField();
+            g.ToString();
             g = g.Shift(4);
-            g.PrintField();
+            g.ToString();
             Console.ReadKey();
         }
     }

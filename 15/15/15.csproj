@@ -7,7 +7,7 @@
     <ProjectGuid>{EBD6E85D-1EFB-4521-BA2B-0B5281D1B963}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_15</RootNamespace>
+    <RootNamespace>Def</RootNamespace>
     <AssemblyName>15</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractClass.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameImmutable.cs" />
     <Compile Include="Program.cs" />
