@@ -29,7 +29,7 @@ namespace Def
                 throw new Exception("Value is not found.");
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string Ans = "";
             for (int i = 0; i < Field.Length; ++i)
