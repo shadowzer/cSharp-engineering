@@ -10,21 +10,22 @@ namespace Def
     {
         static void Main(string[] args)
         {
-            //Game g = new Game(1, 2, 3, 0, 4, 5, 6, 7, 8);
-            //g.PrintField();
-            //g.Shift(1);
-            //g.PrintField();
-            //g.Shift(1);
-            //g.PrintField();
-            //g.Shift(4);
-            //g.PrintField();
-
-            GameImmutable g = new GameImmutable(1, 2, 3, 0, 4, 5, 6, 7, 8);
-            g.ToString();
+            Game g = new Game(1, 2, 3, 0, 4, 5, 6, 7, 8);
+            Console.WriteLine(g.ToString());
+            g.Shift(1);
+            Console.WriteLine(g.ToString());
+            g.Shift(1);
+            Console.WriteLine(g.ToString());
             g.Shift(4);
-            g.ToString();
-            g = g.Shift(4);
-            g.ToString();
+            Console.WriteLine(g.ToString() + "\n--------\n");
+
+            GameImmutable gi = new GameImmutable(1, 2, 3, 0, 4, 5, 6, 7, 8);
+            Console.WriteLine(gi.ToString());
+            gi.Shift(4);
+            Console.WriteLine(gi.ToString());
+            gi = gi.Shift(4);
+            Console.WriteLine(gi.ToString());
+
             Console.ReadKey();
         }
     }
