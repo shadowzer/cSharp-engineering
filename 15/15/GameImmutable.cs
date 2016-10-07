@@ -33,11 +33,10 @@ namespace Def
         
         public GameImmutable Shift(int value)
         {
-            int x, x0, y, y0;
-            GetLocation(value, out x, out y);
-            GetLocation(0, out x0, out y0);
+            Cell CellValue = GetLocation(value);
+            Cell Cell0 = GetLocation(0);
 
-            if (Math.Abs(x - x0) + Math.Abs(y - y0) == 1)
+            if (Math.Abs(CellValue.X - Cell0.X) + Math.Abs(CellValue.Y - Cell0.Y) == 1)
             {
                 int[] CopyField = new int[Field.Length * Field.Length];
 
@@ -48,8 +47,8 @@ namespace Def
                         CopyField[i * Field.Length + j] = Field[i][j];
                     }
                 }
-                CopyField[x * Field.Length + y] = 0;
-                CopyField[x0 * Field.Length + y0] = value;
+                CopyField[CellValue.X * Field.Length + CellValue.Y] = 0;
+                CopyField[Cell0.X * Field.Length + Cell0.Y] = value;
                 return new GameImmutable(CopyField);
             }
             else

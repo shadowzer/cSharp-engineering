@@ -17,13 +17,14 @@ namespace Def
         }
 
         // value is a key in dictionary map to find value's coordinates
-        public void GetLocation(int value, out int x, out int y)
+        public Cell GetLocation(int value)
         {
+            Cell Ans;
             if (Map.ContainsKey(value))
             {
-                x = Map[value][0];
-                y = Map[value][1];
-                return;
+                Ans.X = Map[value][0];
+                Ans.Y = Map[value][1];
+                return Ans;
             }
             else
                 throw new Exception("Value is not found.");

@@ -33,16 +33,15 @@ namespace Def
 
         public void Shift(int value)
         {
-            int x, x0, y, y0;
-            GetLocation(value, out x, out y);
-            GetLocation(0, out x0, out y0);
+            Cell CellValue = GetLocation(value);
+            Cell Cell0 = GetLocation(0);
 
-            if (Math.Abs(x - x0) + Math.Abs(y - y0) == 1)
+            if (Math.Abs(CellValue.X - Cell0.X) + Math.Abs(CellValue.Y - Cell0.Y) == 1)
             {
-                Field[x][y] = 0;
-                Field[x0][y0] = value;
-                Map[value] = new int[2] { x0, y0 };
-                Map[0] = new int[2] { x, y };
+                Field[CellValue.X][CellValue.Y] = 0;
+                Field[Cell0.X][Cell0.Y] = value;
+                Map[value] = new int[2] { Cell0.X, Cell0.Y };
+                Map[0] = new int[2] { CellValue.X, CellValue.Y };
             }
             else
                 throw new Exception("You can not do turn with this value now.");
