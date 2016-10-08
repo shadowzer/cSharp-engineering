@@ -39,8 +39,7 @@ namespace Game.Tests
         {
             Def.Game g = new Def.Game(1, 2, 3, 0);
 
-            int x, y;
-            g.GetLocation(15, out x, out y);
+            Def.Cell C = g.GetLocation(15);
         }
 
         [TestMethod]
@@ -48,11 +47,10 @@ namespace Game.Tests
         {
             Def.Game g = new Def.Game(1, 2, 3, 0);
 
-            int x, y;
-            g.GetLocation(2, out x, out y);
+            Def.Cell C = g.GetLocation(2);
 
-            Assert.AreEqual(0, x);
-            Assert.AreEqual(1, y);
+            Assert.AreEqual(0, C.X);
+            Assert.AreEqual(1, C.Y);
         }
 
         [TestMethod]
@@ -78,6 +76,15 @@ namespace Game.Tests
             g.Shift(2);
             Assert.AreEqual(0, g[0, 1]);
             Assert.AreEqual(2, g[1, 1]);
+        }
+
+        [TestMethod]
+        public void CreateImmutableGameAndDoTurnAreNotSameObjects()
+        {
+            Def.GameImmutable g = new Def.GameImmutable(1, 2, 3, 0, 4, 5, 6, 7, 8);
+            Def.GameImmutable g1 = g.Shift(4);
+
+            Assert.AreNotSame(g, g1);
         }
     }
 }
