@@ -14,7 +14,7 @@ namespace Generic
     {
         static void Main(string[] args)
         {            
-            var Processor = ProcessorBuilder.CreateEngine<MyEngine>().For<MyEntity>().With<MyLogger>();
+            var Processor = ProcessorWrapper.CreateEngine<MyEngine>().For<MyEntity>().With<MyLogger>();
         }
     }
 }

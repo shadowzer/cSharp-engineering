@@ -6,32 +6,32 @@ using System.Threading.Tasks;
 
 namespace Generic
 {
-    class Processor<TEngine, TEntity, TLogger>
+    class ProcessorBuilder<TEngine, TEntity, TLogger>
     {
 
     }
 
-    class ProcessorBuilder
+    class ProcessorWrapper
     {
-        public static Engine<TEngine> CreateEngine<TEngine>()
+        public static EngineWrapper<TEngine> CreateEngine<TEngine>()
         {
-            return new Engine<TEngine>();
+            return new EngineWrapper<TEngine>();
         }
     }
 
-    class Engine<TEngine>
+    class EngineWrapper<TEngine>
     {
-        public EngineEntity<TEngine, TEntity> For<TEntity>()
+        public EntityWrapper<TEngine, TEntity> For<TEntity>()
         {
-            return new EngineEntity<TEngine, TEntity>();
+            return new EntityWrapper<TEngine, TEntity>();
         }
     }
 
-    class EngineEntity<TEngine, TEntity>
+    class EntityWrapper<TEngine, TEntity>
     {
-        public Processor<TEngine, TEntity, TLogger> With<TLogger>()
+        public ProcessorBuilder<TEngine, TEntity, TLogger> With<TLogger>()
         {
-            return new Processor<TEngine, TEntity, TLogger>();
+            return new ProcessorBuilder<TEngine, TEntity, TLogger>();
         }
     }
 }
