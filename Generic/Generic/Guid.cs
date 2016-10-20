@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Generic
 {
-    class MyGuid
+    class GuidStorage
     {
         Dictionary<Type, Dictionary<Guid, object>> TheDictionary = new Dictionary<Type, Dictionary<Guid, object>>();
 
@@ -33,14 +33,9 @@ namespace Generic
         //Третий метод умеет быстро выводить по переданному Guid объект переданного типа, либо null, если такой объект отсутствует.
         public T GetObject<T>(Guid guid)
         {
-            if (TheDictionary.ContainsKey(typeof(T)))
-            {
-                return TheDictionary[typeof(T)].ContainsKey(guid) ? (T)TheDictionary[typeof(T)][guid] : default(T);
-            }
-            else
-            {
-                return default(T);
-            }
+            if (TheDictionary.ContainsKey(typeof(T)) && TheDictionary[typeof(T)].ContainsKey(guid))
+                return (T)TheDictionary[typeof(T)][guid];
+            return default(T);
         }
     }
 }
