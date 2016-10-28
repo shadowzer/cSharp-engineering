@@ -9,13 +9,13 @@ namespace Delegates.Task3
 {
     public interface IObservable
     {
-        Action<Observer> AddObserver;
-        Action<Observer> RemoveObserver;
+        void AddObserver(Observer obs);
+        void RemoveObserver(Observer obs);
     }
 
     public interface IObserver
     {
-        Action<string> Update;
+        void Update(string obs);
     }
 
     public class Observer : IObserver
@@ -39,11 +39,11 @@ namespace Delegates.Task3
     public class Table : IObservable
     {
         private List<Observer> Observers = new List<Observer>();
-        private int[,] Table;
+        private int[,] TheTable;
 
         public Table(Observer obs = null)
         {
-            Table = new int[0, 0];
+            TheTable = new int[0, 0];
             if (obs != null)
                 AddObserver(obs);
         }
@@ -69,24 +69,24 @@ namespace Delegates.Task3
 
         private bool IsCellExist(int row, int column)
         {
-            return (row < Table.GetLength(0) || column < Table.GetLength(1)) ? true : false;
+            return (row < TheTable.GetLength(0) || column < TheTable.GetLength(1)) ? true : false;
         }
 
         private bool IsValidIndex(int idx, int dimension)
         {
-            return (idx < 0 || idx > Table.GetLength(dimension)) ? false : true;
+            return (idx < 0 || idx > TheTable.GetLength(dimension)) ? false : true;
         }
 
         private void UpdateTable(int[,] newTable)
         {
-            for (int i = 0; i < Table.GetLength(0); i++)
+            for (int i = 0; i < TheTable.GetLength(0); i++)
             {
-                for (int j = 0; j < Table.GetLength(1); j++)
+                for (int j = 0; j < TheTable.GetLength(1); j++)
                 {
-                    newTable[i, j] = Table[i, j];
+                    newTable[i, j] = TheTable[i, j];
                 }
             }
-            Table = newTable;
+            TheTable = newTable;
             
         }
 
@@ -94,7 +94,7 @@ namespace Delegates.Task3
         {
             if (!IsCellExist(row, column))
                 throw new Exception("Cell at row:" + row.ToString() + " column:" + column.ToString() + " does not exist");
-            Table[row, column] = value;
+            TheTable[row, column] = value;
             Notify("Puted " + value.ToString() + " to (" + row.ToString() + "; " + column.ToString() + ")");
         }
 
@@ -102,7 +102,7 @@ namespace Delegates.Task3
         {
             if (!IsValidIndex(rowIndex, 0))
                 throw new Exception("Row index is not valid");
-            var NewTable = new int[rowIndex + 1, Table.GetLength(1)];
+            var NewTable = new int[rowIndex + 1, TheTable.GetLength(1)];
             UpdateTable(NewTable);
             Notify("Inserted row #" + (rowIndex + 1).ToString());
         }
@@ -111,7 +111,7 @@ namespace Delegates.Task3
         {
             if (!IsValidIndex(columnIndex, 1))
                 throw new ArgumentException("Column index is not valid");
-            var NewTable = new int[Table.GetLength(0), columnIndex + 1];
+            var NewTable = new int[TheTable.GetLength(0), columnIndex + 1];
             UpdateTable(NewTable);
             Notify("Inserted column #" + (columnIndex + 1).ToString());
         }
@@ -120,8 +120,8 @@ namespace Delegates.Task3
         {
             if (!IsCellExist(row, column))
                 throw new Exception("Cell at row:" + row.ToString() + " column:" + column.ToString() + " does not exist");
-            Notify("Get " + Table[row, column].ToString() + " from (" + row.ToString() + "; " + column.ToString() + ")");
-            return Table[row, column];
+            Notify("Get " + TheTable[row, column].ToString() + " from (" + row.ToString() + "; " + column.ToString() + ")");
+            return TheTable[row, column];
         }
 
     }
