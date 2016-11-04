@@ -22,17 +22,14 @@ namespace Application
             }
         }
 
-        private static IPlugin GetPlugin(string path)
+        // Если в dll окажется 2 плагина сразу, то вы возьмете по сути один случайный, больше того, если там будет один плагин с конструктором с параметрами, а второй - без. Вы можете вернуть null из сборки
+        private static IPlugin GetPlugin(string path) 
         {
             var asm = Assembly.LoadFile(path);
             foreach (var type in asm.GetTypes())
             {
-                var interfaces = type.GetInterfaces();
-                if (interfaces.Contains(typeof(IPlugin)))
-                {
-                    var constructor = type.GetConstructor(new Type[] { });
-                    return constructor != null ? (IPlugin)constructor.Invoke(new Object[] { }) : null;
-                }
+                if (type.GetInterface(typeof(IPlugin).FullName) != null && !type.IsInterface)
+                    return (IPlugin)Activator.CreateInstance(typeof(IPlugin));
             }
 
             return null;
