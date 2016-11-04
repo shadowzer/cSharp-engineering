@@ -12,6 +12,8 @@ namespace ComputerMath
     // состоящие из операторов сложения, умножения, скобок и функции Math.Sin. Результат работы метода должен быть скомпилированным делегатом.
     class Program
     {
+        private static ParameterExpression x = Expression.Parameter(typeof(double), "x");
+
         public static Expression<Func<double, double>> Differentiate(Expression expression)
         {
             if (expression is ConstantExpression)
@@ -36,7 +38,7 @@ namespace ComputerMath
                                Differentiate(((BinaryExpression)expression).Left),
                                Differentiate(((BinaryExpression)expression).Right)
                             ), 
-                            Expression.Parameter(typeof(double), "x")
+                            x
                         );
                 }
 
@@ -54,7 +56,7 @@ namespace ComputerMath
                                     Differentiate(((BinaryExpression)expression).Right).Body
                                 )
                             ),
-                            Expression.Parameter(typeof(double), "x")
+                            x
                         );
                 }
             }
@@ -70,7 +72,7 @@ namespace ComputerMath
                             Differentiate(((MethodCallExpression)expression).Arguments[0]),
                             Expression.Call(typeof(Math).GetMethod("cos"), ((MethodCallExpression)expression).Arguments[0])
                         ),
-                        Expression.Parameter(typeof(double), "x")
+                        x
                     );
             }
 
