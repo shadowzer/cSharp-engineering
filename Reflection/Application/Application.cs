@@ -22,7 +22,6 @@ namespace Application
             }
         }
 
-        // Если в dll окажется 2 плагина сразу, то вы возьмете по сути один случайный, больше того, если там будет один плагин с конструктором с параметрами, а второй - без. Вы можете вернуть null из сборки
         private static IPlugin GetPlugin(string path) 
         {
             var asm = Assembly.LoadFile(path);
