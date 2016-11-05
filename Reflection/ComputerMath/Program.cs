@@ -12,9 +12,7 @@ namespace ComputerMath
     // состоящие из операторов сложения, умножения, скобок и функции Math.Sin. Результат работы метода должен быть скомпилированным делегатом.
     class Program
     {
-        private static ParameterExpression x = Expression.Parameter(typeof(double), "x");
-
-        public static Expression<Func<double, double>> Differentiate(Expression expression)
+        public static Expression<Func<double, double>> Differentiate(Expression expression, ParameterExpression expressionParameters)
         {
             if (expression is ConstantExpression)
                 return x => 0;
@@ -23,7 +21,7 @@ namespace ComputerMath
                 return x => 1;
 
             if (expression is LambdaExpression)
-                return Differentiate(((LambdaExpression)expression).Body);
+                return Differentiate(((LambdaExpression)expression).Body, expressionParameters);
 
             if (expression is BinaryExpression)
             {
@@ -35,10 +33,10 @@ namespace ComputerMath
                     return 
                         Expression.Lambda<Func<double, double>>(
                             Expression.Add(
-                               Differentiate(((BinaryExpression)expression).Left),
-                               Differentiate(((BinaryExpression)expression).Right)
-                            ), 
-                            x
+                               Differentiate(((BinaryExpression)expression).Left, expressionParameters),
+                               Differentiate(((BinaryExpression)expression).Right, expressionParameters)
+                            ),
+                            expressionParameters
                         );
                 }
 
@@ -48,15 +46,15 @@ namespace ComputerMath
                         Expression.Lambda<Func<double, double>>(
                             Expression.Add(
                                 Expression.Multiply(
-                                    Differentiate(((BinaryExpression)expression).Left).Body,
+                                    Differentiate(((BinaryExpression)expression).Left, expressionParameters).Body,
                                     ((BinaryExpression)expression).Right
                                 ),
                                 Expression.Multiply(
                                     ((BinaryExpression)expression).Left,
-                                    Differentiate(((BinaryExpression)expression).Right).Body
+                                    Differentiate(((BinaryExpression)expression).Right, expressionParameters).Body
                                 )
                             ),
-                            x
+                            expressionParameters
                         );
                 }
             }
@@ -69,10 +67,10 @@ namespace ComputerMath
                 return
                     Expression.Lambda<Func<double, double>>(
                         Expression.Multiply(
-                            Differentiate(((MethodCallExpression)expression).Arguments[0]),
+                            Differentiate(((MethodCallExpression)expression).Arguments[0], expressionParameters),
                             Expression.Call(typeof(Math).GetMethod("cos"), ((MethodCallExpression)expression).Arguments[0])
                         ),
-                        x
+                        expressionParameters
                     );
             }
 
