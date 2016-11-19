@@ -11,7 +11,7 @@ namespace Files
     {
         static void Main(string[] args)
         {
-            foreach (var item in CSV1.ReadCsv1())
+            foreach (var item in CSVReader.ReadCsv1())
             {
                 Console.WriteLine(item);
             }
